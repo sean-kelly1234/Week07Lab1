@@ -25,7 +25,7 @@ public class NoteDB {
         Connection connection = pool.getConnection();
         
         try {
-            String preparedQuery = "INSERT INTO Notes (dateCreated, contents) VALUES (?, ?)";
+            String preparedQuery = "INSERT INTO Note (dateCreated, contents) VALUES (?, ?)";
             PreparedStatement ps = connection.prepareStatement(preparedQuery);
             ps.setDate(1, new java.sql.Date(note.getDateCreated().getTime()));
             ps.setString(2, note.getContents());
@@ -43,7 +43,7 @@ public class NoteDB {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         try {
-            String preparedStatement = "UPDATE Notes SET "
+            String preparedStatement = "UPDATE Note SET "
                     + "contents = ? "
                     + "WHERE noteId = ?";
             PreparedStatement ps = connection.prepareStatement(preparedStatement);
@@ -63,7 +63,7 @@ public class NoteDB {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM Notes");
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM Note");
             ResultSet rs = ps.executeQuery();
             List<Note> notes = new ArrayList<Note>();
             while (rs.next()){
@@ -82,7 +82,7 @@ public class NoteDB {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM Notes"
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM Note"
                     + " WHERE noteId = ?");
             ps.setInt(1, noteId);
             ResultSet rs = ps.executeQuery();
@@ -104,7 +104,7 @@ public class NoteDB {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         try {
-            String preparedStatement = "DELETE FROM Notes "
+            String preparedStatement = "DELETE FROM Note "
                     + "WHERE noteId = ?";
             PreparedStatement ps = connection.prepareStatement(preparedStatement);
             ps.setInt(1, note.getNoteId());
